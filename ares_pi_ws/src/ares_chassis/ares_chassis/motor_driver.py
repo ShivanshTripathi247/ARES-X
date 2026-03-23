@@ -1,15 +1,25 @@
-#!/usr/.bin/env python3
+#!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
-from gpiozero import Robot
+from gpiozero import Robot, OutputDevice
 
 class MotorDriver(Node):
     def __init__(self):
         super().__init__('motor_driver')
         
-        # Initialize L298N pins (using the ones you proved working!)
-        self.rover = Robot(left=(17, 27), right=(22, 23))
+        # 1. Turn ON the Enable Pins (The "Throttle")
+        # ENA (Left) -> GPIO 17
+        # ENB (Right) -> GPIO 18
+        self.ena = OutputDevice(17)
+        self.enb = OutputDevice(18)
+        self.ena.on()
+        self.enb.on()
+        
+        # 2. Initialize wheels (The "Steering")
+        # Left = (IN1, IN2) -> (27, 22)
+        # Right = (IN3, IN4) -> (10, 9)
+        self.rover = Robot(left=(27, 22), right=(10, 9))
         
         # Subscribe to standard ROS 2 driving commands
         self.subscription = self.create_subscription(
