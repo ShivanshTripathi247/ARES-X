@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  ares_base_station:
+    build: .
+    container_name: ares_pilot
+    network_mode: "host"
+    privileged: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=42
+      - QT_X11_NO_MITSHM=1
+      # Automatically sets the Discovery Server for every terminal!
+      - ROS_DISCOVERY_SERVER=127.0.0.1:11811 
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./ares_pc_ws:/ares_ws/ares_pc_ws
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: tail -f /dev/null
