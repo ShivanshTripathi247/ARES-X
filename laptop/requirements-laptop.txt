@@ -1,0 +1,22 @@
+# ARES-X Laptop Requirements
+# Install with: pip install -r requirements-laptop.txt
+# Tested on Pop!_OS / Ubuntu with Python 3.10+
+
+# Communication
+websockets>=13.0
+
+# Computer vision + YOLO
+opencv-python>=4.8.0
+ultralytics>=8.0.0        # YOLOv8 — includes torch dependency
+
+# LiDAR
+rplidar-roboticia>=0.9.0  # RPLiDAR Python library
+
+# Dashboard
+fastapi>=0.110.0
+uvicorn>=0.29.0
+jinja2>=3.1.0
+python-multipart>=0.0.9
+
+# Data
+numpy>=1.24.0

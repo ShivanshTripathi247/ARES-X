@@ -1,0 +1,14 @@
+# ARES-X Pi Requirements
+# Install with: pip install -r requirements-pi.txt
+# NOTE: picamera2, libcamera, numpy come from system packages (apt)
+# This venv uses --system-site-packages so they are already available
+
+# Communication
+pyserial==3.5
+websockets>=13.0
+
+# Computer vision (headless — no display needed)
+opencv-python-headless>=4.8.0
+
+# Utilities
+tqdm>=4.0.0
