@@ -7,6 +7,9 @@
 pyserial==3.5
 websockets>=13.0
 
+# LiDAR
+rplidar-roboticia>=0.9.0   # ADD THIS — missing from original
+
 # Computer vision (headless — no display needed)
 opencv-python-headless>=4.8.0
 

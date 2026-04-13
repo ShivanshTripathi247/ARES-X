@@ -33,18 +33,28 @@ sudo apt install -y \
     i2c-tools
 
 # ─── Enable interfaces via raspi-config ────────────────────
-echo "[4/7] Enabling camera, UART, I2C..."
-# Enable camera
-sudo raspi-config nonint do_camera 0
-# Enable UART (disable serial console, keep hardware UART)
-sudo raspi-config nonint do_serial_hw 0
-sudo raspi-config nonint do_serial_cons 1
-# Enable I2C (for future sensors)
+echo "[4/7] Configuring camera, UART, I2C..."
+# Dual camera setup for Pi 5
+sudo tee -a /boot/firmware/config.txt << 'CONF'
+
+# ARES-X — dual camera config
+camera_auto_detect=0
+dtoverlay=ov5647,cam0
+dtoverlay=imx708,cam1
+
+# Enable UART for ESP32 bridge
+enable_uart=1
+CONF
+
+# Enable I2C
 sudo raspi-config nonint do_i2c 0
+
+# Disable serial console (keep hardware UART free for ESP32)
+sudo systemctl disable serial-getty@ttyAMA0.service 2>/dev/null || true
 
 # ─── Project folder structure ──────────────────────────────
 echo "[5/7] Creating project structure..."
-mkdir -p ~/aresx/{bridge,camera,lidar,dashboard,utils,logs,config}
+mkdir -p ~/aresx/{bridge,camera,lidar,utils,logs,config}
 
 cat > ~/aresx/README.md << 'EOF'
 ARES-X Rover — Project Structure

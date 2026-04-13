@@ -7,10 +7,10 @@ websockets>=13.0
 
 # Computer vision + YOLO
 opencv-python>=4.8.0
-ultralytics>=8.0.0        # YOLOv8 — includes torch dependency
+ultralytics>=8.0.0
 
 # LiDAR
-rplidar-roboticia>=0.9.0  # RPLiDAR Python library
+rplidar-roboticia>=0.9.0
 
 # Dashboard
 fastapi>=0.110.0
@@ -20,3 +20,11 @@ python-multipart>=0.0.9
 
 # Data
 numpy>=1.24.0
+
+# Dashboard
+Pillow>=10.0.0          # YOLOP uses PIL.Image
+torchvision>=0.17.0     # YOLOP transforms
+scipy>=1.10.0           # YOLOP postprocessing
+
+# PyTorch — install manually with correct CUDA version:
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
